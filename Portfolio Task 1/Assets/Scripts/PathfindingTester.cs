@@ -16,11 +16,16 @@ public class PathfindingTester : MonoBehaviour
     Vector3 OffSet = new Vector3(0, 0.0f, 0);
     // Start is called before the first frame update
 
-    private int count=0;
+    private int pathCounter=0;
     private int current=0;
+    private bool first=true;
+    private int a=1;
+
     public float speed;
     private GameObject firstNode;
     private Rigidbody rigidBody;
+
+    private GameObject package;
 
 
     void Start()
@@ -28,6 +33,7 @@ public class PathfindingTester : MonoBehaviour
         
         rigidBody = GetComponent<Rigidbody>();
         firstNode=GameObject.FindWithTag("startNode");
+        package=GameObject.FindWithTag("package");
         if (start == null || end == null)
         {
             Debug.Log("No start or end waypoints.");
@@ -78,47 +84,94 @@ public class PathfindingTester : MonoBehaviour
 
 
   // Update is called once per frame
-    void Update()
+     void Update()
     {
-        if(current==0){
-            Vector3 pos2 = Vector3.MoveTowards(transform.position, ConnectionArray[0].GetFromNode().transform.position, speed * Time.deltaTime);
-            rigidBody.MovePosition(pos2);
+        if(a==1){
+        package.transform.parent = rigidBody.transform;
+        }else{
+            package.transform.parent =null;
         }
-        if (transform.position != ConnectionArray[current].GetToNode().transform.position)
-        {
-            Vector3 pos2 = Vector3.MoveTowards(transform.position, ConnectionArray[current].GetToNode().transform.position, speed * Time.deltaTime);
-            rigidBody.MovePosition(pos2);
-        }
-        else
-        {
-            current = (current + 1) % ((ConnectionArray.Count));
+        int numArray = ConnectionArray.Count;
 
-            if (current + (ConnectionArray.Count - 1) == (ConnectionArray.Count - 1) && (transform.position != ConnectionArray[current].GetToNode().transform.position))
+        Vector3 finalVector = Vector3
+                .MoveTowards(transform.position,
+                ConnectionArray[numArray - 1].GetToNode().transform.position,
+                speed * Time.deltaTime);
+        float finalPositionX = ConnectionArray[numArray - 1].GetToNode().transform.position.x;
+
+        if (finalVector.x == finalPositionX && pathCounter == numArray)
+        {
+            a++;
+            ConnectionArray.Reverse();
+            first = false;
+            pathCounter = 0;
+        }
+
+
+        if (
+            (transform.position !=
+            ConnectionArray[current].GetFromNode().transform.position) && first
+           )
+        {
+            
+            if (pathCounter <= numArray - 1)
             {
-       
-                count = count + 1;
-                speed = speed + 1f;
+                Vector3 posVector = Vector3
+                        .MoveTowards(transform.position,
+                        ConnectionArray[current].GetFromNode().transform.position,
+                        speed * Time.deltaTime);
 
-                ConnectionArray.Reverse();
-                
-                Debug.Log(count);
-                Vector3 pos3 = Vector3.MoveTowards(transform.position, ConnectionArray[current].GetToNode().transform.position, speed * Time.deltaTime);
-               rigidBody.MovePosition(pos3);
-
-                if (count == 2)
-                {
-                    // Vector3 pos2 = Vector3.MoveTowards(transform.position, firstNode.transform.position, speed * Time.deltaTime);
-                    // rigidBody.MovePosition(pos2);
-                    speed = 0f;
-                }
+                rigidBody.MovePosition(posVector);
 
             }
             else
             {
-                {
+                
+                Vector3 posVector = Vector3
+                          .MoveTowards(transform.position,
+                          ConnectionArray[numArray - 1].GetToNode().transform.position,
+                          speed * Time.deltaTime);
 
-                    current = (current) % ((ConnectionArray.Count));
-                }
+                rigidBody.MovePosition(posVector);
+            }
+        }
+
+        else if (
+                (transform.position !=
+                ConnectionArray[current].GetFromNode().transform.position) && !first
+            )
+        {
+            
+            if (pathCounter <= numArray - 1)
+            {
+                
+                Vector3 posVector = Vector3
+                        .MoveTowards(transform.position,
+                        ConnectionArray[current].GetFromNode().transform.position,
+                        speed * Time.deltaTime);
+
+                rigidBody.MovePosition(posVector);
+
+            }
+            else
+            {
+                Vector3 posVector = Vector3
+                          .MoveTowards(transform.position,
+                          ConnectionArray[numArray - 1].GetFromNode().transform.position,
+                          speed * Time.deltaTime);
+
+                rigidBody.MovePosition(posVector);
+            }
+        }
+
+        else
+        {
+            current = (current + 1) % ((ConnectionArray.Count));
+            pathCounter++;
+
+            if (current != ConnectionArray.Count-1)
+            {
+                current = (current) % ((ConnectionArray.Count));
             }
         }
     }
