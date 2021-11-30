@@ -28,20 +28,70 @@ public class PathfindingTester : MonoBehaviour
     private GameObject package;
 
 
-    void Start()
-    {
+    // void Start()
+    // {
         
-        rigidBody = GetComponent<Rigidbody>();
-        firstNode=GameObject.FindWithTag("startNode");
-        package=GameObject.FindWithTag("package");
-        if (start == null || end == null)
-        {
+    //     rigidBody = GetComponent<Rigidbody>();
+    //     firstNode=GameObject.FindWithTag("startNode");
+    //     package=GameObject.FindWithTag("package");
+    //     if (start == null || end == null)
+    //     {
+    //         Debug.Log("No start or end waypoints.");
+    //         return;
+    //     }
+    //     // Find all the waypoints in the level.
+    //     GameObject[] GameObjectsWithWaypointTag;
+    //     GameObjectsWithWaypointTag = GameObject.FindGameObjectsWithTag("waypoint");
+    //     foreach (GameObject waypoint in GameObjectsWithWaypointTag)
+    //     {
+    //         WayPointCON tmpWaypointCon = waypoint.GetComponent<WayPointCON>();
+    //         if (tmpWaypointCon)
+    //         {
+    //             Waypoints.Add(waypoint);
+    //         }
+    //     }
+    //     // Go through the waypoints and create connections.
+    //     foreach (GameObject waypoint in Waypoints)
+    //     {
+    //         WayPointCON tmpWaypointCon = waypoint.GetComponent<WayPointCON>();
+    //         // Loop through a waypoints connections.
+    //         foreach (GameObject WaypointConNode in tmpWaypointCon.Connections)
+    //         {
+    //             Connection aConnection = new Connection();
+    //             aConnection.SetFromNode(waypoint);
+    //             aConnection.SetToNode(WaypointConNode);
+    //             AStarManager.AddConnection(aConnection);
+    //         }
+    //     }
+    //     // Run A Star...
+    //     ConnectionArray = AStarManager.PathfindAStar(start, end);
+        
+    // }
+    // // Draws debug objects in the editor and during editor play (if option set).
+    // void OnDrawGizmos()
+    // {
+    //     // Draw path.
+    //     foreach (Connection aConnection in ConnectionArray)
+    //     {
+    //         Gizmos.color = Color.white;
+    //         Gizmos.DrawLine((aConnection.GetFromNode().transform.position + OffSet),
+    //         (aConnection.GetToNode().transform.position + OffSet));
+
+            
+    //     }
+
+    // }
+
+        public List<Connection> findPath(GameObject start, GameObject end){
+        if( start == null || end == null){
             Debug.Log("No start or end waypoints.");
-            return;
+            return new List<Connection>();
         }
+
         // Find all the waypoints in the level.
         GameObject[] GameObjectsWithWaypointTag;
         GameObjectsWithWaypointTag = GameObject.FindGameObjectsWithTag("waypoint");
+
         foreach (GameObject waypoint in GameObjectsWithWaypointTag)
         {
             WayPointCON tmpWaypointCon = waypoint.GetComponent<WayPointCON>();
@@ -50,6 +100,8 @@ public class PathfindingTester : MonoBehaviour
                 Waypoints.Add(waypoint);
             }
         }
+
+        
         // Go through the waypoints and create connections.
         foreach (GameObject waypoint in Waypoints)
         {
@@ -62,117 +114,112 @@ public class PathfindingTester : MonoBehaviour
                 aConnection.SetToNode(WaypointConNode);
                 AStarManager.AddConnection(aConnection);
             }
+
         }
-        // Run A Star...
-        ConnectionArray = AStarManager.PathfindAStar(start, end);
-        
+
+
+    
+
+    this.ConnectionArray = AStarManager.PathfindAStar(start, end);
+    return ConnectionArray;
+
     }
-    // Draws debug objects in the editor and during editor play (if option set).
-    void OnDrawGizmos()
-    {
-        // Draw path.
-        foreach (Connection aConnection in ConnectionArray)
-        {
-            Gizmos.color = Color.white;
-            Gizmos.DrawLine((aConnection.GetFromNode().transform.position + OffSet),
-            (aConnection.GetToNode().transform.position + OffSet));
 
-            
-        }
-
+    public List<Connection> GetConnectionArray(){
+        return this.ConnectionArray;
     }
 
 
   // Update is called once per frame
-     void Update()
-    {
-        if(a==1){
-        package.transform.parent = rigidBody.transform;
-        }else{
-            package.transform.parent =null;
-        }
-        int numArray = ConnectionArray.Count;
+    //  void Update()
+    // {
+    //     if(a==1){
+    //     package.transform.parent = rigidBody.transform;
+    //     }else{
+    //         package.transform.parent =null;
+    //     }
+    //     int numArray = ConnectionArray.Count;
 
-        Vector3 finalVector = Vector3
-                .MoveTowards(transform.position,
-                ConnectionArray[numArray - 1].GetToNode().transform.position,
-                speed * Time.deltaTime);
-        float finalPositionX = ConnectionArray[numArray - 1].GetToNode().transform.position.x;
+    //     Vector3 finalVector = Vector3
+    //             .MoveTowards(transform.position,
+    //             ConnectionArray[numArray - 1].GetToNode().transform.position,
+    //             speed * Time.deltaTime);
+    //     float finalPositionX = ConnectionArray[numArray - 1].GetToNode().transform.position.x;
 
-        if (finalVector.x == finalPositionX && pathCounter == numArray)
-        {
-            a++;
-            ConnectionArray.Reverse();
-            first = false;
-            pathCounter = 0;
-        }
+    //     if (finalVector.x == finalPositionX && pathCounter == numArray)
+    //     {
+    //         a++;
+    //         ConnectionArray.Reverse();
+    //         first = false;
+    //         pathCounter = 0;
+    //     }
 
 
-        if (
-            (transform.position !=
-            ConnectionArray[current].GetFromNode().transform.position) && first
-           )
-        {
+    //     if (
+    //         (transform.position !=
+    //         ConnectionArray[current].GetFromNode().transform.position) && first
+    //        )
+    //     {
             
-            if (pathCounter <= numArray - 1)
-            {
-                Vector3 posVector = Vector3
-                        .MoveTowards(transform.position,
-                        ConnectionArray[current].GetFromNode().transform.position,
-                        speed * Time.deltaTime);
+    //         if (pathCounter <= numArray - 1)
+    //         {
+    //             Vector3 posVector = Vector3
+    //                     .MoveTowards(transform.position,
+    //                     ConnectionArray[current].GetFromNode().transform.position,
+    //                     speed * Time.deltaTime);
 
-                rigidBody.MovePosition(posVector);
+    //             rigidBody.MovePosition(posVector);
 
-            }
-            else
-            {
+    //         }
+    //         else
+    //         {
                 
-                Vector3 posVector = Vector3
-                          .MoveTowards(transform.position,
-                          ConnectionArray[numArray - 1].GetToNode().transform.position,
-                          speed * Time.deltaTime);
+    //             Vector3 posVector = Vector3
+    //                       .MoveTowards(transform.position,
+    //                       ConnectionArray[numArray - 1].GetToNode().transform.position,
+    //                       speed * Time.deltaTime);
 
-                rigidBody.MovePosition(posVector);
-            }
-        }
+    //             rigidBody.MovePosition(posVector);
+    //         }
+    //     }
 
-        else if (
-                (transform.position !=
-                ConnectionArray[current].GetFromNode().transform.position) && !first
-            )
-        {
+    //     else if (
+    //             (transform.position !=
+    //             ConnectionArray[current].GetFromNode().transform.position) && !first
+    //         )
+    //     {
             
-            if (pathCounter <= numArray - 1)
-            {
+    //         if (pathCounter <= numArray - 1)
+    //         {
                 
-                Vector3 posVector = Vector3
-                        .MoveTowards(transform.position,
-                        ConnectionArray[current].GetFromNode().transform.position,
-                        speed * Time.deltaTime);
+    //             Vector3 posVector = Vector3
+    //                     .MoveTowards(transform.position,
+    //                     ConnectionArray[current].GetFromNode().transform.position,
+    //                     speed * Time.deltaTime);
 
-                rigidBody.MovePosition(posVector);
+    //             rigidBody.MovePosition(posVector);
 
-            }
-            else
-            {
-                Vector3 posVector = Vector3
-                          .MoveTowards(transform.position,
-                          ConnectionArray[numArray - 1].GetFromNode().transform.position,
-                          speed * Time.deltaTime);
+    //         }
+    //         else
+    //         {
+    //             Vector3 posVector = Vector3
+    //                       .MoveTowards(transform.position,
+    //                       ConnectionArray[numArray - 1].GetFromNode().transform.position,
+    //                       speed * Time.deltaTime);
 
-                rigidBody.MovePosition(posVector);
-            }
-        }
+    //             rigidBody.MovePosition(posVector);
+    //         }
+    //     }
 
-        else
-        {
-            current = (current + 1) % ((ConnectionArray.Count));
-            pathCounter++;
+    //     else
+    //     {
+    //         current = (current + 1) % ((ConnectionArray.Count));
+    //         pathCounter++;
 
-            if (current != ConnectionArray.Count-1)
-            {
-                current = (current) % ((ConnectionArray.Count));
-            }
-        }
-    }
+    //         if (current != ConnectionArray.Count-1)
+    //         {
+    //             current = (current) % ((ConnectionArray.Count));
+    //         }
+    //     }
+    // }
 }

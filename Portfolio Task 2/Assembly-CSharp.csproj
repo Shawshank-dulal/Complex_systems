@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{25BD1744-E5DB-59F6-B260-A85E649549CF}</ProjectGuid>
+    <ProjectGuid>{5F173782-29B7-CEF3-71E7-02FB7F00C759}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -63,35 +63,39 @@
      <Compile Include="Assets\City Adventure\Plugins\DealyedActivation.cs" />
      <Compile Include="Assets\Scripts\AStar.cs" />
      <Compile Include="Assets\Scripts\AStarManager.cs" />
+     <Compile Include="Assets\Scripts\CollaborationController.cs" />
      <Compile Include="Assets\Scripts\Connection.cs" />
+     <Compile Include="Assets\Scripts\Drone.cs" />
      <Compile Include="Assets\Scripts\Graph.cs" />
      <Compile Include="Assets\Scripts\Heuristic.cs" />
+     <Compile Include="Assets\Scripts\MainCameraScript.cs" />
      <Compile Include="Assets\Scripts\NodeRecord.cs" />
      <Compile Include="Assets\Scripts\PathfindingList.cs" />
      <Compile Include="Assets\Scripts\PathfindingTester.cs" />
+     <Compile Include="Assets\Scripts\UIController.cs" />
      <Compile Include="Assets\Scripts\WayPointCON.cs" />
      <None Include="Assets\City Adventure\Plugins\ColorSuite\Shader\ColorSuite.shader" />
      <None Include="Assets\City Adventure\QuickVideoTutorial\CA_QuickTutorial.txt" />
  <Reference Include="UnityEngine.Purchasing">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/UnityEditor.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>/home/sashank/Coursework task 1/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/home/sashank/Unity/Hub/Editor/2018.4.36f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -298,7 +302,7 @@
  <HintPath>/home/sashank/Unity/Hub/Editor/2018.4.36f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>/home/sashank/Coursework task 1/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>/home/sashank/Complex Systems/Portfolio Task 2/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>/home/sashank/Unity/Hub/Editor/2018.4.36f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
