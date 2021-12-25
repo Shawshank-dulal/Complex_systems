@@ -10,8 +10,8 @@ public class PathfindingTester : MonoBehaviour
     // Array of waypoint map connections. Represents a path.
     List<Connection> ConnectionArray = new List<Connection>();
     // The start and end target point.
-    public GameObject start;
-    public GameObject end;
+    private GameObject start;
+    private GameObject end;
     // Debug line offset.
     Vector3 OffSet = new Vector3(0, 0.0f, 0);
     // Start is called before the first frame update
@@ -116,9 +116,6 @@ public class PathfindingTester : MonoBehaviour
             }
 
         }
-
-
-    
 
     this.ConnectionArray = AStarManager.PathfindAStar(start, end);
     return ConnectionArray;
